@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOW&GLOW | 伴走パートナー</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        body { font-family: 'Noto Sans JP', sans-serif; scroll-behavior: smooth; }
+        .fade-in { opacity: 0; transform: translateY(20px); transition: all 1s ease-out; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .text-gradient { 
+            background: linear-gradient(90deg, #e17c7c, #f3a683); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+        }
+        .hero-bg {
+            background-image: linear-gradient(rgba(255, 252, 250, 0.9), rgba(255, 252, 250, 0.95)), 
+                              url('https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover; background-position: center;
+        }
+        @media (min-width: 1024px) {
+            .force-single-line { 
+                white-space: nowrap !important; 
+                display: inline-block;
+                width: auto;
+            }
+        }
+    </style>
+</head>
+<body class="bg-[#fdfaf8] text-[#4a4440] antialiased">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
+
+        const FadeInSection = ({ children }) => {
+            const [isVisible, setVisible] = useState(false);
+            const domRef = useRef();
+            useEffect(() => {
+                const observer = new IntersectionObserver(entries => {
+                    entries.forEach(entry => { if (entry.isIntersecting) setVisible(true); });
+                });
+                if (domRef.current) observer.observe(domRef.current);
+                return () => observer.disconnect();
+            }, []);
+            return <div ref={domRef} className={`fade-in ${isVisible ? 'visible' : ''}`}>{children}</div>;
+        };
+
+        function App() {
+            // LINE URL
+            const lineUrl = "https://lin.ee/KcArsl4"; 
+
+            return (
+                <div className="min-h-screen">
+                    {/* Header */}
+                    <header className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md py-4 border-b border-rose-50">
+                        <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
+                            <div className="font-black text-xl tracking-[0.3em]">NOW&GLOW</div>
+                            <nav className="hidden md:flex gap-8 text-[10px] font-black tracking-widest text-[#8e7f77]">
+                                <a href="#problem" className="hover:text-rose-400">PROBLEM</a>
+                                <a href="#value" className="hover:text-rose-400">VALUE</a>
+                                <a href="#price" className="hover:text-rose-400">PRICE</a>
+                                <a href="#thought" className="hover:text-rose-400">THOUGHT</a>
+                            </nav>
+                            <a href={lineUrl} target="_blank" rel="noopener noreferrer" className="text-[10px] font-bold tracking-widest text-rose-400 border-b border-rose-300">CONTACT</a>
+                        </div>
+                    </header>
+
+                    {/* Hero */}
+                    <section className="hero-bg min-h-screen flex items-center pt-20 px-6">
+                        <div className="max-w-4xl mx-auto w-full">
+                            <FadeInSection>
+                                <p className="text-[10px] font-black tracking-[0.4em] text-rose-400 mb-6 uppercase">Creative Partnership</p>
+                                <h1 className="text-5xl md:text-8xl font-black leading-tight mb-8">
+                                    先生じゃない。<br />
+                                    <span className="text-gradient">「完了」</span>させる<br />
+                                    パートナー。
+                                </h1>
+                                <p className="text-lg md:text-xl text-[#8e7f77] font-bold mb-10 max-w-2xl leading-relaxed">
+                                    「やり方はわかっている。でも動けない」のは、あなたが悪いのではありません。必要なのは知識ではなく、隣で共に走る「環境」と「強制力」です。
+                                </p>
+                                <a href="#price" className="inline-block px-10 py-5 bg-[#4a4440] text-white text-[10px] font-black tracking-widest uppercase rounded-full">Explore Plans</a>
+                            </FadeInSection>
+                        </div>
+                    </section>
+
+                    {/* Problem */}
+                    <section id="problem" className="py-32 bg-[#f7f1ed]">
+                        <div className="max-w-5xl mx-auto px-6">
+                            <FadeInSection>
+                                <h2 className="text-xs font-black tracking-[0.5em] text-rose-400 uppercase mb-16">Problem</h2>
+                                <h3 className="text-3xl md:text-5xl font-black mb-16 leading-tight">
+                                    あなたが「動けない」<br />本当の理由。
+                                </h3>
+                                <div className="grid md:grid-cols-3 gap-12">
+                                    <div className="border-l border-rose-200 pl-8">
+                                        <p className="text-sm font-bold text-rose-400 mb-4">Case 01</p>
+                                        <p className="text-[#8e7f77] text-sm leading-relaxed">ノウハウは溢れているのに、なぜか一人では形にならない。</p>
+                                    </div>
+                                    <div className="border-l border-rose-200 pl-8">
+                                        <p className="text-sm font-bold text-rose-400 mb-4">Case 02</p>
+                                        <p className="text-[#8e7f77] text-sm leading-relaxed">一人で試行錯誤して、気づけば数時間が過ぎている（時間の停滞）。</p>
+                                    </div>
+                                    <div className="border-l border-rose-200 pl-8">
+                                        <p className="text-sm font-bold text-rose-400 mb-4">Case 03</p>
+                                        <p className="text-[#8e7f77] text-sm leading-relaxed">プロに頼みたいけれど、高額な外注費やミスマッチが不安。</p>
+                                    </div>
+                                </div>
+                            </FadeInSection>
+                        </div>
+                    </section>
+
+                    {/* Value */}
+                    <section id="value" className="py-32 bg-[#fdfaf8]">
+                        <div className="max-w-6xl mx-auto px-6">
+                            <FadeInSection>
+                                <h2 className="text-xs font-black tracking-[0.5em] text-rose-300 uppercase mb-20 text-center">Our Value</h2>
+                                <div className="grid md:grid-cols-3 gap-8">
+                                    <div className="bg-white p-10 rounded-[2rem] shadow-sm border border-rose-50 text-center">
+                                        <h4 className="font-black text-xl mb-6 text-rose-400">時間の最適化</h4>
+                                        <p className="text-sm text-[#8e7f77] leading-relaxed">一人で悩む時間を大幅に短縮し、本業に集中できる環境を作ります。</p>
+                                    </div>
+                                    <div className="bg-white p-10 rounded-[2rem] shadow-sm border border-rose-50 text-center">
+                                        <h4 className="font-black text-xl mb-6 text-rose-400">優しい客観視</h4>
+                                        <p className="text-sm text-[#8e7f77] leading-relaxed">自分一人では見落としていたあなたの魅力を、対話から引き出します。</p>
+                                    </div>
+                                    <div className="bg-white p-10 rounded-[2rem] shadow-sm border border-rose-50 text-center overflow-hidden">
+                                        <h4 className="font-black text-xl mb-6 text-rose-400">「完了」の喜び</h4>
+                                        <p className="text-sm text-[#8e7f77] leading-relaxed force-single-line">
+                                            画面を共有しながら、その場でCanvaやSNSを「1本完成」まで導きます。
+                                        </p>
+                                    </div>
+                                </div>
+                            </FadeInSection>
+                        </div>
+                    </section>
+
+                    {/* Time Saver Section */}
+                    <section className="py-32 bg-white">
+                        <div className="max-w-5xl mx-auto px-6">
+                            <FadeInSection>
+                                <div className="flex flex-col md:flex-row items-center gap-12 bg-[#fdfaf8] rounded-[3rem] p-10 md:p-16 border border-rose-100 shadow-sm">
+                                    <div className="md:w-1/2">
+                                        <h2 className="text-3xl md:text-4xl font-black mb-8 leading-tight text-[#4a4440]">
+                                            タイムセーバー<br /><span className="text-rose-400">（時間の節約者）</span>
+                                        </h2>
+                                        <p className="text-lg md:text-xl font-bold leading-relaxed mb-6 text-[#8e7f77]">
+                                            あなたが一人で20時間悩む損失を、私との5時間で「価値ある完成」に変えます。
+                                        </p>
+                                    </div>
+                                    <div className="md:w-1/2 bg-white p-10 rounded-3xl border border-rose-50 text-center shadow-inner">
+                                        <div className="text-[#8e7f77] text-2xl font-black mb-4 line-through opacity-30">¥100,000の損失</div>
+                                        <div className="text-rose-300 text-3xl mb-4 font-black">↓</div>
+                                        <div className="text-[#4a4440] text-4xl font-black mb-2">¥55,000の価値</div>
+                                    </div>
+                                </div>
+                            </FadeInSection>
+                        </div>
+                    </section>
+
+                    {/* Price */}
+                    <section id="price" className="py-32 bg-white px-6">
+                        <div className="max-w-6xl mx-auto">
+                            <FadeInSection>
+                                <h2 className="text-xs font-black tracking-[0.5em] text-rose-300 uppercase mb-20 text-center">Price Plans</h2>
+                                <div className="grid md:grid-cols-3 gap-8 mb-20 text-center">
+                                    <div className="bg-[#fdfaf8] p-10 rounded-3xl border border-rose-50">
+                                        <h5 className="font-bold mb-4">習慣化コミュニティ</h5>
+                                        <p className="text-2xl font-black text-rose-400">¥2,980/月</p>
+                                    </div>
+                                    <div className="bg-white p-10 rounded-3xl border-2 border-rose-300 shadow-xl relative scale-105 z-10">
+                                        <div className="absolute -top-4 left-6 bg-rose-400 text-white px-3 py-1 text-[8px] font-black uppercase">Popular</div>
+                                        <h5 className="font-bold mb-4">お試し伴走（60分）</h5>
+                                        <p className="text-2xl font-black text-rose-400">¥5,000/回</p>
+                                    </div>
+                                    <div className="bg-[#fdfaf8] p-10 rounded-3xl border border-rose-50">
+                                        <h5 className="font-bold mb-4">スタンダードプラン</h5>
+                                        <p className="text-2xl font-black text-rose-400">¥35,000/月</p>
+                                    </div>
+                                </div>
+                            </FadeInSection>
+                        </div>
+                    </section>
+
+                    {/* Thought */}
+                    <section id="thought" className="py-32 bg-[#fdfaf8]">
+                        <div className="max-w-4xl mx-auto px-6 text-center">
+                            <FadeInSection>
+                                <h2 className="text-xs font-black tracking-[0.5em] text-rose-300 uppercase mb-16">My Thought</h2>
+                                <p className="text-xl md:text-2xl font-bold leading-loose text-[#4a4440]">
+                                    技術を教えるのではなく、<br />
+                                    あなたの想いをスッキリ整理し、<br />
+                                    最短距離で形にする。<br />
+                                    <span className="text-rose-400">「並走者」でありたい。</span>
+                                </p>
+                            </FadeInSection>
+                        </div>
+                    </section>
+
+                    {/* CTA */}
+                    <section id="contact" className="py-40 bg-[#4a4440] text-white text-center px-6">
+                        <FadeInSection>
+                            <h2 className="text-4xl md:text-6xl font-black mb-12 leading-tight">
+                                悩む時間を、<br />完了させる喜びに.
+                            </h2>
+                            <a href={lineUrl} target="_blank" rel="noopener noreferrer" className="inline-block px-12 py-6 bg-rose-400 rounded-full text-[10px] font-black tracking-widest uppercase hover:scale-110 shadow-2xl transition-transform">Apply via LINE</a>
+                        </FadeInSection>
+                    </section>
+
+                    {/* Footer */}
+                    <footer className="py-12 bg-white border-t border-rose-50 text-center">
+                        <div className="font-black tracking-[0.4em] mb-4">NOW&GLOW</div>
+                        <p className="text-[10px] text-rose-200">© 2024 NOW&GLOW</p>
+                    </footer>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
